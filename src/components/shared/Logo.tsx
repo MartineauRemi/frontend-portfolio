@@ -1,11 +1,7 @@
-import styled from "styled-components"
+import logo from '../../assets/shared/logo.svg'
 
 export default function Logo(){
     return (
-        <Title className='logo'>&lt;RM/&gt;</Title>
+        <img src={logo} alt='Welcome !' width="40px" height="40px"/>
     )
 }
-
-const Title = styled.h1`
-    font-size: 1.25rem;
-`

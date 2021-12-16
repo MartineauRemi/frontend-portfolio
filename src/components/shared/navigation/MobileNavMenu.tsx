@@ -1,12 +1,16 @@
 import styled from "styled-components"
 import MainNav from "./MainNav"
-import { INavMenuProps } from '../../../interfaces'
 import { CloseButton } from '../Buttons'
 import { gsap } from 'gsap'
-import { useEffect, useRef } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef } from "react"
 import SocialMedias from "../social-medias/SocialMedias"
 
-export default function MobileNavMenu({navMenuActive, setNavMenuActive}: INavMenuProps) {
+interface Props{
+    navMenuActive: boolean;
+    setNavMenuActive: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function MobileNavMenu({navMenuActive, setNavMenuActive}: Props) {
     //used for menu toggle animation
     const mobileNavMenuRef = useRef(null)
 
@@ -15,10 +19,11 @@ export default function MobileNavMenu({navMenuActive, setNavMenuActive}: INavMen
             mobileNavMenuRef.current,
             {
                 duration: .3,
+                delay: .5,
                 left: '-100%'
             }
         )
-        setTimeout(() => setNavMenuActive(false), 300)
+        setTimeout(() => setNavMenuActive(false), 800)
     }
 
     useEffect(() => {
@@ -44,7 +49,7 @@ export default function MobileNavMenu({navMenuActive, setNavMenuActive}: INavMen
                         <CloseButtonContainer>
                             <CloseButton onClick={onClickCloseButton} />
                         </CloseButtonContainer>
-                        <MainNav />
+                        <MainNav onClickNavLink={() => onClickCloseButton()}/>
                         <SocialMedias />
                     </Content>
                 </Wrapper>
@@ -54,13 +59,14 @@ export default function MobileNavMenu({navMenuActive, setNavMenuActive}: INavMen
 }
 
 const Wrapper = styled.div`
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: -100%;
     background-color: var(--black-secondary);
     padding: 1.5rem;
+    z-index: 5;
 `
 
 const Content = styled.div`

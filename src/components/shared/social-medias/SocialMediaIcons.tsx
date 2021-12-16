@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { FaGithub, FaTwitter, FaLinkedinIn } from 'react-icons/fa'
 import { mySocialMedias } from '../../../data/my-infos'
 import { ReactNode } from 'react'
@@ -9,10 +9,14 @@ interface ISocialMediaProps{
     children?: ReactNode;
 }
 
-const Link = styled.a`
+const Link = styled.a<any>`
     color: var(--white-secondary);
     transition: all .3s ease-in-out;
     font-size: 1.5rem;
+
+    ${props => props.color && css`
+        color: ${props.color};
+    `};
 `
 
 const SocialMedia = ({href, ariaLabel, children}: ISocialMediaProps) => {

@@ -1,13 +1,13 @@
 import styled from "styled-components"
 
-export default function MainNav() {
+export default function MainNav({onClickNavLink}: {onClickNavLink?: () => void}) {
     return (
         <nav className='main-nav'>
             <List>
-                <li><Link href='#home'>Accueil</Link></li>
-                <li><Link href='#about'>À Propos</Link></li>
-                <li><Link href='#portfolio'>Portfolio</Link></li>
-                <li><Link href='#contact'>Contact</Link></li>
+                <li><Link href='#home' onClick={onClickNavLink}>Accueil</Link></li>
+                <li><Link href='#about' onClick={onClickNavLink}>À Propos</Link></li>
+                <li><Link href='#portfolio' onClick={onClickNavLink}>Portfolio</Link></li>
+                <li><Link href='#contact' onClick={onClickNavLink}>Contact</Link></li>
             </List>
         </nav>
     )
@@ -28,4 +28,9 @@ const Link = styled.a`
     font-weight: var(--fw-bold);
     line-height: 1.5rem;
     letter-spacing: -0.25px;
+    transition: all .3s ease-in-out;
+
+    &:hover{
+        color: var(--blue-primary);
+    }
 `

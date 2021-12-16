@@ -30,6 +30,7 @@ const FooterContainer = styled.footer`
     @media screen and (min-width: 1440px){
         padding: 2.5rem 0;
         padding-bottom: 1rem;
+        margin-top: 5rem;
     }
 `
 

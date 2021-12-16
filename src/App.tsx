@@ -9,6 +9,13 @@ import { GlobalStyle } from './GlobalStyle'
 function App() {
 
   const [navMenuActive, setNavMenuActive] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  const changeHeaderBackgroundOnScroll = () => {
+      setScrolled(window.scrollY > 100)
+  }
+
+  window.addEventListener('scroll', changeHeaderBackgroundOnScroll)
 
   return (
     <AppContainer className="App">
@@ -16,6 +23,7 @@ function App() {
       <Header
         navMenuActive={navMenuActive}
         setNavMenuActive={setNavMenuActive}
+        scrolled={scrolled}
       />
       <MobileNavMenu navMenuActive={navMenuActive} setNavMenuActive={setNavMenuActive} />
       <Main />

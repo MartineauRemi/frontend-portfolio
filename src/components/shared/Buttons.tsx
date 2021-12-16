@@ -3,6 +3,7 @@ import styled from "styled-components"
 export interface IButtonProps{
     label?: string;
     onClick: (props: any) => any;
+    backgroundColor?: string;
 }
 
 export const Button = styled.button`
@@ -13,6 +14,31 @@ export const Button = styled.button`
     font-weight: var(--fw-medium);
     padding: 1rem;
     background-color: var(--transparent);
+    transition: all .3s ease-in-out;
+`
+
+export const OutlineButton = styled(Button)`
+    background-color: transparent;
+    border: 1px solid var(--black-secondary);
+    color: var(--black-secondary);
+    border-radius: 0.5rem;
+
+    &:hover{
+        color: var(--blue-primary);
+        border: 1px solid var(--blue-primary);
+    }
+`
+
+export const BlueButton = styled(Button)`
+    color: var(--white);
+    background-color: var(--blue-primary);
+    border: 1px solid var(--blue-primary);
+    border-radius: 0.5rem;
+
+    &:hover{
+        background-color: var(--blue-secondary);
+        border-color: var(--blue-secondary);
+    }
 `
 
 
@@ -49,7 +75,7 @@ const NavButton = styled(Button)`
 
 export const NavMenuButton = ({onClick}: {onClick: () => void}) => {
     return (
-        <NavButton className='nav-menu-button mobile-only' onClick={onClick}>
+        <NavButton className='nav-menu-button mobile-only' onClick={onClick} aria-label='nav-button'>
             <Tick />
             <Tick />
             <Tick />
@@ -60,18 +86,14 @@ export const NavMenuButton = ({onClick}: {onClick: () => void}) => {
 
 /*___CloseButton___*/
 
-const CloseButtonTick = styled.span`
+const CloseButtonTick = styled.span<{backgroundColor?: string}>`
     width: 100%;
     height: 2px;
-    background-color: var(--white-secondary);
+    background-color: ${props => props.backgroundColor ? `${props.backgroundColor}` : 'var(--white-secondary)'};
     transform-origin: center;
     position: absolute;
     top: 50%;
     left: 0;
-
-    &:hover{
-        background-color: var(--white);
-    }
 
     &:first-child{
         transform: rotate(45deg);
@@ -89,11 +111,11 @@ const StyledCloseButton = styled(Button)`
     padding: 0;
 `
 
-export const CloseButton = ({onClick}: IButtonProps) => {
+export const CloseButton = ({onClick, backgroundColor}: IButtonProps) => {
     return (
-        <StyledCloseButton onClick={onClick}>
-            <CloseButtonTick />
-            <CloseButtonTick />
+        <StyledCloseButton onClick={onClick} aria-label='close-button'>
+            <CloseButtonTick backgroundColor={backgroundColor}/>
+            <CloseButtonTick backgroundColor={backgroundColor}/>
         </StyledCloseButton>
     )
 }
