@@ -6,6 +6,8 @@ import Portfolio from '../../layout/Portfolio'
 import { useState } from 'react'
 import { IProject } from '../../interfaces'
 import ProjectModal from '../projects/ProjectModal'
+import LazyLoad from 'react-lazyload'
+import Spinner from './loading/Spinner'
 
 export default function Main() {
     const [selectedProject, setSelectedProject] = useState<IProject | null >(null)
@@ -24,11 +26,27 @@ export default function Main() {
                     ): null
             }
             <Hero />
-            <About />
-            <Portfolio
-                setSelectedProject={setSelectedProject}
-                setProjectModalOpen={setProjectModalOpen}
-            />
+            <LazyLoad
+                placeholder={
+                    <SpinnerContainer>
+                        <Spinner />
+                    </SpinnerContainer>
+                }
+            >
+                <About />
+            </LazyLoad>
+            <LazyLoad
+                placeholder={
+                    <SpinnerContainer>
+                        <Spinner />
+                    </SpinnerContainer>
+                }
+            >
+                <Portfolio
+                    setSelectedProject={setSelectedProject}
+                    setProjectModalOpen={setProjectModalOpen}
+                />
+            </LazyLoad>
             <Contact />
         </Wrapper>
     )
@@ -39,4 +57,8 @@ export default function Main() {
 const Wrapper = styled.main`
     width: 100%;
     position :relative;
+`
+
+const SpinnerContainer = styled.div`
+    margin: auto;
 `
